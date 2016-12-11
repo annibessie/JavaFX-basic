@@ -5,6 +5,8 @@ import com.sun.javafx.jmx.MXNodeAlgorithm;
 import com.sun.javafx.jmx.MXNodeAlgorithmContext;
 import com.sun.javafx.sg.prism.NGNode;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -15,6 +17,9 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.converter.DateStringConverter;
 import javafx.util.converter.LocalDateStringConverter;
+import javafx.scene.control.SelectionModel;
+
+
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -23,6 +28,12 @@ import java.util.Scanner;
  * Created by anni-bessie on 26.10.16.
  */
 public class Main extends Application{
+
+    public String salvestatudKN;
+    public String salvestatudTier;
+    public String salvestatudposits;
+    int paevi;
+    int fee;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -38,10 +49,22 @@ public class Main extends Application{
 
         Label kliendinumber = new Label("Klient");
         ChoiceBox kn = new ChoiceBox(FXCollections.observableArrayList("Klient 1", "Klient 2", "Klient 3"));
+        kn.getSelectionModel().selectedItemProperty()
+                .addListener(new ChangeListener <String>() {
+                    public void changed(ObservableValue ov, String value, String new_value) {
+                        salvestatudKN = new_value;
+                    }
+                });
         kn.getValue();
 
         Label tier = new Label("Tier");
         ChoiceBox tiernr = new ChoiceBox(FXCollections.observableArrayList("Tier 1", "Tier 2", "Tier 3"));
+        kn.getSelectionModel().selectedItemProperty()
+                .addListener(new ChangeListener <String>() {
+                    public void changed(ObservableValue ov, String value, String new_value) {
+                        salvestatudTier = new_value;
+                    }
+                });
 
         Label eesnimi = new Label("Eesnimi");
         TextField en = new TextField();
@@ -53,6 +76,12 @@ public class Main extends Application{
 
         Label positsioon = new Label("Positsioon");
         ChoiceBox posits = new ChoiceBox(FXCollections.observableArrayList("Team lead", "Team member"));
+        posits.getSelectionModel().selectedItemProperty()
+                .addListener(new ChangeListener <String>() {
+                    public void changed(ObservableValue ov, String value, String new_value) {
+                        salvestatudposits = new_value;
+                    }
+                });
 
         Label rahvus = new Label("Rahvus");
         TextField rahv = new TextField();
@@ -90,12 +119,12 @@ public class Main extends Application{
             System.out.println(posits.getValue());
             long datealguskp = alguskp.getValue().toEpochDay();
             long dateloppkp = loppkuupaev.getValue().toEpochDay();
-            int paevi = (int) Math.abs(dateloppkp - datealguskp + 1);
+            paevi = (int) Math.abs(dateloppkp - datealguskp + 1);
 
 
             System.out.println(paevi);
 
-            int fee = paevi;
+            fee = paevi;
 
             if (kn.getValue().equals("Klient 1")) {
                 fee = paevi * 10;
@@ -112,25 +141,43 @@ public class Main extends Application{
 
         });
 
+
         Button salvestabutton = new Button("Salvesta");
 
         GridPane gridPane = new GridPane();
-        Scene tulemusleht = new Scene(gridPane, 700, 800);
+        Scene tulemusleht = new Scene(gridPane, 900, 800);
 
+        //String arvpaevi = Integer.toString(paevi);
+        //String feesumma = Integer.toString(fee);
 
         salvestabutton.setOnMouseClicked(event -> {
             primaryStage.setScene(tulemusleht);
             ColumnConstraints column1 = new ColumnConstraints();
-            column1.setPrefWidth(100);
+            column1.setPrefWidth(900);
             gridPane.add(new Label("Kliendinumber"), 1, 2);
             gridPane.add(new Label("Tier"), 2, 2);
             gridPane.add(new Label("Eesnimi"), 3, 2);
             gridPane.add(new Label("Perekonnanimi"), 4, 2);
             gridPane.add(new Label("Positsioon"), 5, 2);
-            gridPane.add(new Label("Päevade arv"), 6, 2);
-            gridPane.add(new Label("Fee"), 7, 2);
-            gridPane.add(kn, 1, 3);
-            //kn - mis ma peaks tegema, et ma saaksin kn-i choiceboxi väärtuse gridpane'i? .getValue().. smth?
+            gridPane.add(new Label("Rahvus"), 6, 2);
+            gridPane.add(new Label("Deployment algus"), 7, 2);
+            gridPane.add(new Label("Deployment lõpp"), 8, 2);
+            gridPane.add(new Label("Päevade arv"), 9, 2);
+            gridPane.add(new Label("Fee"), 10, 2);
+            gridPane.add(new Label(kn.getValue().toString()), 1, 3);
+            gridPane.add(new Label(tiernr.getValue().toString()), 2, 3);
+            gridPane.add(new Label(en.getText()), 3, 3);
+            gridPane.add(new Label(pn.getText()), 4, 3);
+            gridPane.add(new Label(posits.getValue().toString()), 5, 3);
+            gridPane.add(new Label(rahv.getText()), 6, 3);
+            gridPane.add(new Label(alguskp.getValue().toString()), 7, 3);
+            gridPane.add(new Label(loppkuupaev.getValue().toString()), 8, 3);
+            gridPane.add(new Label(String.valueOf(paevi)), 9, 3);
+            gridPane.add(new Label(String.valueOf(fee)), 10, 3);
+            //gridPane.add(new int[fee]), 10, 3);
+            //gridPane.add(new int
+            //gridPane.add(new int[fee], 7, 3);
+
             //gridPane.add(fee, 7, 3);
             //eelmise rea kohta: programm arvutab vastavalt kuupäevadele fee - kuidas ma selle väärtuse kätte saaksin, nii et kuvada seda järgmises scene'is grid pane'is?
 
