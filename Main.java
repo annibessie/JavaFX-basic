@@ -174,12 +174,6 @@ public class Main extends Application{
             gridPane.add(new Label(loppkuupaev.getValue().toString()), 8, 3);
             gridPane.add(new Label(String.valueOf(paevi)), 9, 3);
             gridPane.add(new Label(String.valueOf(fee)), 10, 3);
-            //gridPane.add(new int[fee]), 10, 3);
-            //gridPane.add(new int
-            //gridPane.add(new int[fee], 7, 3);
-
-            //gridPane.add(fee, 7, 3);
-            //eelmise rea kohta: programm arvutab vastavalt kuupäevadele fee - kuidas ma selle väärtuse kätte saaksin, nii et kuvada seda järgmises scene'is grid pane'is?
 
         });
 
