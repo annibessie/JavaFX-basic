@@ -17,13 +17,10 @@ import java.util.Date;
 /**
  * Created by anni-bessie on 5.01.17.
  */
+
 public class Deployment {
 
-    public String salvestatudKN;
-    public String salvestatudTier;
-    public String salvestatudposits;
-    int paevi;
-    int fee;
+    public ClientData data;
 
     VBox vbox = new VBox();
     Scene avaleht = new Scene(vbox, 700, 800);
@@ -31,6 +28,7 @@ public class Deployment {
 
     Deployment () {
         deploymentScene();
+        new ClientData();
     }
 
     public Scene deploymentScene () {
@@ -41,24 +39,23 @@ public class Deployment {
         stage.setScene(avaleht);
         stage.show();
 
-
         Label kliendinumber = new Label("Klient");
         ChoiceBox kn = new ChoiceBox(FXCollections.observableArrayList("Klient 1", "Klient 2", "Klient 3"));
         kn.getSelectionModel().selectedItemProperty()
                 .addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue ov, String value, String new_value) {
-                        salvestatudKN = new_value;
-                    }
-                });
-        kn.getValue();
+                        data.salvestatudKN = new_value;
+                        }
+                    });
+            kn.getValue();
 
         Label tier = new Label("Tier");
         ChoiceBox tiernr = new ChoiceBox(FXCollections.observableArrayList("Tier 1", "Tier 2", "Tier 3"));
         kn.getSelectionModel().selectedItemProperty()
                 .addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue ov, String value, String new_value) {
-                        salvestatudTier = new_value;
-                    }
+                        data.salvestatudTier = new_value;
+                        }
                 });
 
         Label eesnimi = new Label("Eesnimi");
@@ -74,7 +71,7 @@ public class Deployment {
         posits.getSelectionModel().selectedItemProperty()
                 .addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue ov, String value, String new_value) {
-                        salvestatudposits = new_value;
+                        data.salvestatudposits = new_value;
                     }
                 });
 
@@ -114,22 +111,22 @@ public class Deployment {
             System.out.println(posits.getValue());
             long datealguskp = alguskp.getValue().toEpochDay();
             long dateloppkp = loppkuupaev.getValue().toEpochDay();
-            paevi = (int) Math.abs(dateloppkp - datealguskp + 1);
+            data.paevi = (int) Math.abs(dateloppkp - datealguskp + 1);
 
 
-            System.out.println(paevi);
+            System.out.println(data.paevi);
 
-            fee = paevi;
+            data.fee = data.paevi;
 
             if (kn.getValue().equals("Klient 1")) {
-                fee = paevi * 10;
-                System.out.println("Fee on " + fee);
+                data.fee = data.paevi * 10;
+                System.out.println("Fee on " + data.fee);
             } else if (kn.getValue().equals("Klient 2")) {
-                fee = paevi * 20;
-                System.out.println("Fee on " + fee);
+                data.fee = data.paevi * 20;
+                System.out.println("Fee on " + data.fee);
             } else if (kn.getValue().equals("Klient 3")) {
-                fee = paevi * 30;
-                System.out.println("Fee on " + fee);
+                data.fee = data.paevi * 30;
+                System.out.println("Fee on " + data.fee);
             } else {
                 System.out.println("Tasu pole määratud");
             }
@@ -142,8 +139,6 @@ public class Deployment {
         GridPane gridPane = new GridPane();
         Scene tulemusleht = new Scene(gridPane, 900, 800);
 
-        //String arvpaevi = Integer.toString(paevi);
-        //String feesumma = Integer.toString(fee);
 
         salvestabutton.setOnMouseClicked(event -> {
             stage.setScene(tulemusleht);
@@ -167,8 +162,8 @@ public class Deployment {
             gridPane.add(new Label(rahv.getText()), 6, 3);
             gridPane.add(new Label(alguskp.getValue().toString()), 7, 3);
             gridPane.add(new Label(loppkuupaev.getValue().toString()), 8, 3);
-            gridPane.add(new Label(String.valueOf(paevi)), 9, 3);
-            gridPane.add(new Label(String.valueOf(fee)), 10, 3);
+            gridPane.add(new Label(String.valueOf(data.paevi)), 9, 3);
+            gridPane.add(new Label(String.valueOf(data.fee)), 10, 3);
 
         });
 
