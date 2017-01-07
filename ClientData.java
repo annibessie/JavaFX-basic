@@ -6,10 +6,10 @@ package minuprojekt;
  */
 public class ClientData {
 
-        public String salvestatudKN;
-        public String salvestatudTier;
-        public String salvestatudposits;
-        int paevi;
-        int fee;
+    public String salvestatudKN;
+    public String salvestatudTier;
+    public String salvestatudposits;
+    int paevi;
+    int fee;
 }
 

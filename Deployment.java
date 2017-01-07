@@ -18,7 +18,9 @@ import java.util.Date;
  * Created by anni-bessie on 5.01.17.
  */
 
+
 public class Deployment {
+
 
     public ClientData data;
 
@@ -29,6 +31,7 @@ public class Deployment {
     Deployment () {
         deploymentScene();
         new ClientData();
+        data = new ClientData();
     }
 
     public Scene deploymentScene () {
@@ -42,12 +45,12 @@ public class Deployment {
         Label kliendinumber = new Label("Klient");
         ChoiceBox kn = new ChoiceBox(FXCollections.observableArrayList("Klient 1", "Klient 2", "Klient 3"));
         kn.getSelectionModel().selectedItemProperty()
-                .addListener(new ChangeListener<String>() {
-                    public void changed(ObservableValue ov, String value, String new_value) {
-                        data.salvestatudKN = new_value;
-                        }
-                    });
-            kn.getValue();
+                       .addListener(new ChangeListener<String>() {
+                public void changed(ObservableValue ov, String value, String new_value) {
+                    data.salvestatudKN = new_value;
+                    }
+                });
+        kn.getValue();
 
         Label tier = new Label("Tier");
         ChoiceBox tiernr = new ChoiceBox(FXCollections.observableArrayList("Tier 1", "Tier 2", "Tier 3"));
@@ -164,6 +167,20 @@ public class Deployment {
             gridPane.add(new Label(loppkuupaev.getValue().toString()), 8, 3);
             gridPane.add(new Label(String.valueOf(data.paevi)), 9, 3);
             gridPane.add(new Label(String.valueOf(data.fee)), 10, 3);
+
+            String klient = kn.getValue().toString();
+            String tiernumber = tiernr.getValue().toString();
+            String inimeseeesnimi = en.getText();
+            String perekonnanimi = pn.getText();
+            String position = posits.getValue().toString();
+            String nationality = rahv.getText();
+            String algus = alguskp.getValue().toString();
+            String lopp = loppkuupaev.getValue().toString();
+            String arvpaevi = String.valueOf(data.paevi);
+            String kliendifee = String.valueOf(data.fee);
+            //Andmebaas a = new Andmebaas();
+            //a.registreeriDeployment(klient, tiernumber, inimeseeesnimi, perekonnanimi, position, nationality, algus, lopp, arvpaevi, kliendifee);
+            //a.sulgeYhendus();
 
         });
 
