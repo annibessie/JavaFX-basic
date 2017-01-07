@@ -10,3 +10,5 @@ Programm võimaldab kalendrivaates valida välislähetuse alguse -ja lõpukuupä
 Erialaspetsiifilise infona on kasulik defineerida töötatud aeg deployment'ina, sest töötajad lähevad välislähetusele (tööle) vastavalt vajadusele ning tööajana arvestatakse seda päeva, kui nad hakkavad välislähetusele minema kuni selle hetkeni kui nad tagasi jõuavad. Töötaja, kes selle arvestusega tegeleb, sisestab käsitsi programmi töötaja deployment'ile mineku kuupäeva ning tagasituleku kuupäeva - mõlemad päevad kuuluvad tasutatavate tööpäevade alla. 
 
 Litsents: 
+
+The code in this project is licenced under Creative Commons Non-Commercial 4.0 (https://creativecommons.org/licenses/by-nc/4.0/)
