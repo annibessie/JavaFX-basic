@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        new Deployment(); //Käivitab muutujate akna, kuhu saab hakata infot lisama
+        new Deployment(); //Programmi algus - käivitab muutujate akna Deployment, kuhu saab hakata infot lisama
     }
 }
 
